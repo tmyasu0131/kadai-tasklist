@@ -3,20 +3,21 @@ class TasksController < ApplicationController
   before_action :require_user_logged_in, only: [:index, :show, :edit]
 
   def index
-    @tasks = Task.all
+    #@tasks = Task.all
+    @tasks = current_user.task.order(id: :desc)
   end
 
   def show
   end
 
   def new
-    @task = Task.new
-    #@task = current_user.tasks.build  # form_with 用
+    #@task = Task.new
+    @task = current_user.task.build  # form_with 用
   end
 
   def create
-    @task = Task.new(task_params)
-    #@task = current_user.tasks.build(task_params)
+    #@task = Task.new(task_params)
+    @task = current_user.task.build(task_params)
 
     if @task.save
       flash[:success] = 'Task が正常に投稿されました'
