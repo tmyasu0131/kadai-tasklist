@@ -4,7 +4,7 @@ class TasksController < ApplicationController
 
   def index
     #@tasks = Task.all
-    @tasks = current_user.task.order(id: :desc)
+    @tasks = current_user.tasks.order(id: :desc)
   end
 
   def show
@@ -12,12 +12,12 @@ class TasksController < ApplicationController
 
   def new
     #@task = Task.new
-    @task = current_user.task.build  # form_with 用
+    @task = current_user.tasks.build  # form_with 用
   end
 
   def create
     #@task = Task.new(task_params)
-    @task = current_user.task.build(task_params)
+    @task = current_user.tasks.build(task_params)
 
     if @task.save
       flash[:success] = 'Task が正常に投稿されました'
